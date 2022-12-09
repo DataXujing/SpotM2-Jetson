@@ -1,0 +1,7 @@
+train: ./dataset/mask/images/train # train images
+val: ./dataset/mask/images/val # val images
+test: ./dataset/mask/images/val # test images (optional)
+
+# Classes
+nc: 3  # number of classes
+names: ['face','mask','person']  # class names

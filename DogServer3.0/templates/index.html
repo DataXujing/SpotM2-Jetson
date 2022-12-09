@@ -1,0 +1,686 @@
+<html>
+
+<head>
+    <title>防疫机器狗</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 自动舒心页面 -->
+    <!-- <meta http-equiv="refresh" content="100">  -->
+     <META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+
+
+    <meta charset="UTF-8" />
+    <link href="../static/css/Datacages_Homeindex.css" rel="stylesheet" type="text/css" />
+    <link href="../static/css/ProgressBarWars.css" rel="stylesheet" />
+    <link href="../static/css/game.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../static/css/photos.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/AlertWindow.css" />
+
+
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        .loadEffect {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto;
+            top: 26%
+        }
+
+        .loadEffect span {
+            animation: load 1.04s ease infinite;
+            display: inline-block;
+            width: 30px;
+            height: 10px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background: lightgreen;
+            position: absolute;
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -5px;
+            animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 10px;
+            top: 20px;
+            transform: rotate(45deg);
+            animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 10px;
+            margin-left: -15px;
+            transform: rotate(90deg);
+            animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 20px;
+            right: 10px;
+            transform: rotate(135deg);
+            animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -5px;
+            transform: rotate(180deg);
+            animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 10px;
+            bottom: 20px;
+            transform: rotate(225deg);
+            animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 10px;
+            left: 50%;
+            margin-left: -15px;
+            transform: rotate(270deg);
+            animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 20px;
+            left: 10px;
+            transform: rotate(315deg);
+            animation-delay: 1.04s;
+        }
+
+        @keyframes load {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%
+        }
+
+        #loading {
+            background-color: #181e20;
+            opacity: 0.5;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 999
+        }
+    </style>
+
+    <script src="../static/js/jquery.js"></script>
+    <script src="../static/js/echarts-all.js"></script>
+    <script src="../static/js/ProgressBarWars.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        .progress {
+            margin-top: 30px;
+        }
+
+        .down_span {
+            color: #dfdede;
+            font-size: 12px;
+            font-weight: lighter
+        }
+
+        h3,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .scrollbox {
+            width: 268px;
+            margin: 0 auto;
+        }
+
+        #scrollDiv {
+            width: 268px;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        /*这里的高度和超出隐藏是必须的*/
+        #scrollDiv ul li {
+            height: 66px;
+            width: 259px;
+            ;
+            background-color: #07325e;
+            overflow: hidden;
+            margin-bottom: 4px;
+            color: #dfdede;
+            font-size: 14px;
+            padding: 0 9px 0 9px;
+            line-height: 30px;
+            position: relative
+        }
+
+        #scrollDiv ul li span {
+            position: absolute;
+            bottom: 5px;
+            right: 16px;
+            display: block;
+            width: 68px;
+            height: 18px;
+            text-align: center;
+            color: #081e49;
+            background-color: #69c200;
+            line-height: 18px
+        }
+
+        .sent-div {
+            width: 98%;
+            height: 98%;
+            margin: 0 auto;
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div style="min-width: 1000px; min-height: 850px; position: relative; height: 100%;">
+
+        <div class="Hometitlebox">
+            <a style=" color: #00e4ff;" href="{{ url_for('index') }}">NVIDIA Jetson Edge AI 开发者大赛-机器狗控制界面</a>
+        </div>
+
+        <!--弹出功能-->
+        <div class="popuofunxtionbox">
+            <!--标题-->
+            <div class="popupboxtitlebox">
+                <span class="popupboxtitlemsg">这个弹窗没有用！</span>
+                <div class="popupboxclose"></div>
+            </div>
+        </div>
+
+
+        <!-- 加载圈圈 好像很重要的样子 -->
+        <div id="loading">
+            <div class="loadEffect">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; position:absolute; top: 60px; width: 100%;">
+            <!--左侧边浮窗-->
+            <div style="width: 290px;">
+                <div class="fltoutbox leftbox">
+                    <div style="height: 65px; padding-top: 25px;">
+                        <span class="analyzedatashowtitle">【运动控制】</span>
+                    </div>
+                    <!--左上分析内容放置框-->
+                    <div class="analyzemsgbgbox" style=" margin-left: 2px; ">
+
+                        <div class="control-wrapper" style=" height: 86px; width:86px; ">
+                            <div class="control-btn control-top" id="btn_dog_top"></div>
+                            <div class="control-btn control-left" id="btn_dog_left"> </div>
+                            <div class="control-btn control-bottom" id="btn_dog_bottom"></div>
+                            <div class="control-btn control-right" id="btn_dog_right"></div>
+                            <div class="control-round" id="btn_dog_round">
+                                <div class="control-round-inner"></div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="sent-div" id="container1"></div> -->
+
+                        <div class="fltdecarround fltdecarroundleft fltdecarroundbottom"></div>
+                        <div class="fltdecarround fltdecarroundbottom fltdecarroundright "></div>
+                    </div>
+
+                    <!--左下分析内容放置框-->
+                    <div class="analyzemsgbgbox" style="margin-top: 20px; height: 350px;overflow: hidden;">
+                        <span class="analyzedatashowtitle" style="line-height: 66px;margin-left: 20px">【日志】</span>
+                        <div class="scrollbox">
+                            <div id="scrollDiv">
+                                <ul id="ul_txt">
+
+                                    <!-- {% for log in my_log %} -->
+                                    <!-- <li> {{ log }} </li> -->
+                                    <!-- <li> &#128054; {{ log.type }} &#8986; {{ log.time }} </li> -->
+                                    <!-- {% endfor %} -->
+                                    <li> &#128054; 欢迎使用防疫机器狗 &#8986; </li>
+
+
+                                </ul>
+                            </div>
+                            <script type="text/javascript">
+                                $("#scrollDiv").Scroll({ line: 1, speed: 500, timer: 2000, up: "but_up", down: "but_down" });
+                                $(function () { setInterval(function () { $("#scrollDiv").load(location.href + " #scrollDiv") }, 1000); })
+                            </script>
+                        </div>
+
+                        <div class="fltdecarround fltdecarroundleft fltdecarroundtop"></div>
+                        <div class="fltdecarround fltdecarroundtop fltdecarroundright"></div>
+
+                        <div class="fltdecarround fltdecarroundleft fltdecarroundbottom"></div>
+                       <div class="fltdecarround fltdecarroundbottom fltdecarroundright"></div>
+
+
+                    </div>
+
+       
+                </div>
+            </div>
+
+
+            <!-- 视频显示 -->
+            <div style="flex-grow: 1; margin-left: 10px; margin-right: 10px">
+                <div class="flasheffectoutbox">
+                    <div style="width: 100%; position: relative">
+                        <!-- <div  style="width: 100%; height: 100%; position: relative"> -->
+
+
+                        <img style="object-fit: cover; width: 100%;" src="{{ url_for('video_feed') }}">
+                    </div>
+                </div>
+            </div>
+
+            <!--右侧边浮窗-->
+            <div style="width: 290px;">
+                <div class="fltoutbox rightbox">
+                    <div style="height: 65px; padding-top: 25px;">
+                        <span class="analyzedatashowtitle">【实时运动显示】</span>
+                    </div>
+
+
+                    <!--右上分析内容放置框-->
+                    <!-- <div class="analyzemsgbgbox " style=" margin-right: 2px;padding-bottom: 29px"> -->
+                    <div class="analyzemsgbgbox " style=" margin-right: 2px;padding-bottom: 29px">
+
+                        <img src="./static/images/dog.png" width=100% id='dog'>
+
+                        <div class="fltdecarround fltdecarroundleft fltdecarroundbottom"></div>
+                        <div class="fltdecarround fltdecarroundbottom fltdecarroundright "></div>
+                    </div>
+                    <!--右下分析内容放置框-->
+                    <div class="analyzemsgbgbox" style="margin-top: 20px; height: 350px;">
+                        <span class="analyzedatashowtitle">【AI数据显示】</span>
+                        <!-- <div style="margin: 0 6px;background-color: #011c2f;opacity: 0.8;padding:8px 0 6px 0"> -->
+                        <!-- <div class="box"> -->
+                        <div id="imglist" style="overflow: hidden;">
+
+
+                            <ul class="list2" id="imgul" style="height:100%;">
+<!--                                 <li><img src="./static/test_img/danji.jpg" id="img1" class="ai_img"></li>
+                                <li><img src="./static/test_img/dianwei.jpg" id="img2" class="ai_img"></li>
+                                <li><img src="./static/test_img/diaochan.jpg" id="img3" class="ai_img"></li>
+                                <li><img src="./static/test_img/lanlinwang.jpg" id="img4" class="ai_img"></li>
+                                <li><img src="./static/test_img/luban.jpg" id="img5" class="ai_img"></li>
+                                <li><img src="./static/test_img/zhaoyun.jpg" id="img6" class="ai_img"></li>
+                                <li><img src="./static/test_img/zhugeliang.jpg" id="img7" class="ai_img"></li>
+                                <li><img src="./static/test_img/kai.jpg" id="img8" class="ai_img"></li> -->
+                            </ul>
+                            <!--             <ul class="list2">
+                <li><a href="#img1"><img src="./static/test_img/danji.jpg"></a></li>
+                <li><a href="#img2"><img src="./static/test_img/dianwei.jpg"></a></li>
+                <li><a href="#img3"><img src="./static/test_img/diaochan.jpg"></a></li>
+                <li><a href="#img4"><img src="./static/test_img/img/lanlinwang.jpg"></a></li>
+                <li><a href="#img5"><img src="./static/test_img/luban.jpg"></a></li>
+                <li><a href="#img6"><img src="./static/test_img/zhaoyun.jpg"></a></li>
+                <li><a href="#img7"><img src="./static/test_img/zhugeliang.jpg"></a></li>
+                <li><a href="#img8"><img src="./static/test_img/kai.jpg"></a></li>
+            </ul> -->
+
+                            <!-- </div> -->
+
+                        </div>
+
+                        <div class="fltdecarround fltdecarroundleft fltdecarroundtop"></div>
+                        <div class="fltdecarround fltdecarroundtop fltdecarroundright "></div>
+                        <div class="fltdecarround fltdecarroundleft fltdecarroundbottom"></div>
+                        <div class="fltdecarround fltdecarroundbottom fltdecarroundright "></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <!--版权-->
+        <div class="copyrigntoutbox">
+            <span class="copyrigntmsg">
+                <a href="https://mp.weixin.qq.com/s/nP5ZXGvuLeZrkrOKxub1qg">
+                    NVIDIA Jetson Edge AI 开发者大赛
+                </a>
+                版权所有 © 美迪康AI Lab团队 2022.
+                <a href="https://beian.miit.gov.cn/#/Integrated/index">
+                    鲁ICP备10004552号
+                </a>.
+                保留一切权利.
+            </span>
+        </div>
+    </div>
+</body>
+
+<script>
+    window.onload = function () {
+        var loading = document.getElementById("loading");
+        loading.style.display = "none";
+    }
+</script>
+
+
+<!-- 机器狗的运动控制 -->
+<script type=text/javascript>
+
+       //单击动画函数
+       function shake(elemId) {
+            let elem = document.getElementById(elemId)
+            if (elem) {
+                elem.classList.add('shake');
+                setTimeout(() => { elem.classList.remove('shake') }, 800);
+            }
+        }
+
+        //更换示意图
+        function changimg(imgSrc){
+            document.getElementById("dog").src=imgSrc;
+        }
+
+
+        $(function() {
+          //top
+          $('#btn_dog_top').bind('click', function(e) {
+            //单击动画
+            shake("btn_dog_top");
+
+            //换图
+            changimg("./static/images/walk1.gif");
+
+            // var cls_name = $(e.target).attr('class');
+            // console.log(cls_name);
+
+            //ajax传参到flask
+            //将tag id传入，这样flask就可以根据点击的按钮启动控制台控制机器狗了！
+
+            my_data={"move_type":"btn_dog_top"};
+           
+            $.ajax({
+                url: '/click_dog_move',
+                type: "post",
+                data: my_data,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    // r = parseInt(data.result);
+                    // $("#scrollDiv").html(data);//要刷新的div
+                    // console.log(data);
+                    // for 循环
+                    var ul_item = ""
+                    for(var i = 0; i < data.length; i++) {
+                        console.log(data[i].time);
+                        ul_item += "<li> &#128054; "+ data[i].type + ", &#8986; "+ data[i].time + ".</li>"
+                    }
+                    $("#ul_txt").html(ul_item);//要刷新的div
+        
+                
+                }
+                // error: function (e) {
+                //     alert("error:"+e);
+                // } 
+            });
+
+            // $.getJSON('/click_dog_move',
+            //     function(data) {
+            //   //do nothing
+            // });
+            return false;
+          
+          });
+
+
+          //left
+          $('#btn_dog_left').bind('click', function(e) {
+            //单击动画
+            shake("btn_dog_left");
+            //换图
+            changimg("./static/images/left.gif");
+
+            //ajax传参到flask
+            //将tag id传入，这样flask就可以根据点击的按钮启动控制台控制机器狗了！
+
+            my_data={"move_type":"btn_dog_left"};
+
+            $.ajax({
+                url: '/click_dog_move',
+                type: "post",
+                data: my_data,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    r = parseInt(data.result);
+
+                }
+  
+            });
+            return false;
+          
+          });
+
+          //bottom
+          $('#btn_dog_bottom').bind('click', function(e) {
+            //单击动画
+            shake("btn_dog_bottom");
+
+            //更换示意图
+
+            //ajax传参到flask
+            //将tag id传入，这样flask就可以根据点击的按钮启动控制台控制机器狗了！
+            //换图
+            changimg("./static/images/walk.gif");
+
+            my_data={"move_type":"btn_dog_bottom"};
+
+            $.ajax({
+                url: '/click_dog_move',
+                type: "post",
+                data: my_data,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    r = parseInt(data.result);
+                }
+  
+            });
+            return false;
+          
+          });
+
+          //right
+          $('#btn_dog_right').bind('click', function(e) {
+            //单击动画
+            shake("btn_dog_right");
+            //ajax传参到flask
+            //将tag id传入，这样flask就可以根据点击的按钮启动控制台控制机器狗了！
+            changimg("./static/images/right.gif");
+
+            my_data={"move_type":"btn_dog_right"};
+
+            $.ajax({
+                url: '/click_dog_move',
+                type: "post",
+                data: my_data,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    r = parseInt(data.result);
+                }
+  
+            });
+            return false;
+          
+          });
+
+          //round
+          $('#btn_dog_round').bind('click', function(e) {
+            //单击动画
+            shake("btn_dog_round");
+            //ajax传参到flask
+            //将tag id传入，这样flask就可以根据点击的按钮启动控制台控制机器狗了！
+            changimg("./static/images/stand.gif");
+
+            my_data={"move_type":"btn_dog_round"};
+
+            $.ajax({
+                url: '/click_dog_move',
+                type: "post",
+                data: my_data,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    r = parseInt(data.result);
+                }
+  
+            });
+            return false;
+          
+          });
+
+
+
+
+
+        });
+</script>
+
+
+
+<script>
+    var time
+    // // 创建一个元素节点
+    // function insertAfter( newElement, targetElement ){ // newElement是要追加的元素targetElement 是指定元素的位置
+    //     var parent = targetElement.parentNode; // 找到指定元素的父节点
+    //     parent.appendChild( newElement, targetElement );
+    // };
+   function img(){
+        clearTimeout(time) // 清空定时器
+        var div = document.getElementById('imglist') //找到存放日志的块
+        div.innerHTML = "<ul class='list2' id='imgul' style='width:100%;' ></ul>" // 每次跑清空div内内容
+
+        // 生成定时器
+        time = setInterval(function (){
+            $.get('/get_img',{},function (data){ //请求获取日志接口获取日志
+                // if (data.log_type == 2)
+                // { //如果获取到新日志
+                //     for (i=0;i<data.log_list.length;i++){ //遍历日志
+                //         var p = document.createElement("p") //生成一个p标签
+                //         p.innerHTML = data.log_list[i] //日志存放到P标签内
+                //         var header = document.getElementById('log_text')
+                //         insertAfter(p,header) //将p标签添加到log_text div中
+                //         div.scrollTop = div.scrollHeight //滚动条实时显示到底部
+                //     }
+                //     log_null = 0 //日志为空次数清0
+                // }
+
+                var li_item = ""
+                for(var i = 0; i < data.length; i++) {
+                    // var li = document.createElement("li") //生成一个li标签
+                    // console.log(data[i].time);
+                    li_item += "<li><img src="+ data[i].file  + "?tempid="+Math.random() +  " class='ai_img' id='img_" + i + "' alt='有人员未佩戴口罩！'></li>"  //
+                }
+
+                // li_item = "<li><img src="+ data[0].file  + "?tempid="+Math.random() +  " class='ai_img' id='ai_img_id'></li>"  //
+
+                $("#imgul").html(li_item);//要刷新的div
+
+                //单击
+                // 获取弹窗
+                var modal = document.getElementById('myModal');
+                 
+                // 获取图片插入到弹窗 - 使用 "alt" 属性作为文本部分的内容
+
+                for(var j=0; j<5;j++){
+
+                var img = document.getElementById('img_'+j);
+
+                var modalImg = document.getElementById("img01");
+                var captionText = document.getElementById("caption");
+                img.onclick = function(){
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                    captionText.innerHTML = this.alt;
+                }
+                 
+                // 获取 <span> 元素，设置关闭按钮
+                var span = document.getElementsByClassName("close")[0];
+                 
+                // 当点击 (x), 关闭弹窗
+                span.onclick = function() { 
+                  modal.style.display = "none";
+                }
+                //单击弹窗结束
+                }
+
+ 
+            })
+        },5000)  //每1秒钟执行一次
+    } 
+    // document.getElementById('button').addEventListener("click",img) //点击开始按钮开始执行
+    window.img();
+</script>
+
+
+
+
+<!-- 单击图片弹窗 -->
+<!-- 弹窗 -->
+<div id="myModal" class="modal">
+ 
+  <!-- 关闭按钮 -->
+  <span class="close" onclick="document.getElementById(&#039;myModal&#039;).style.display=&#039;none&#039;">&times;</span>
+ 
+  <!-- 弹窗内容 -->
+  <img class="modal-content" id="img01">
+ 
+  <!-- 文本描述 -->
+  <div id="caption"></div>
+</div>
+
+
+
+
+
+</html>
