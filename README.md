@@ -4,11 +4,11 @@
 
 
 
-## NVIDIA Jetson Edge AI开发者大赛
+<h2 align='center'> NVIDIA Jetson Edge AI开发者大赛</h2>
 
-### 智能防疫四足机器狗-SpotM2
+<h3 align='center'>智能防疫四足机器狗-SpotM2</h3>
 
-**美迪康 AI Lab 成员：徐静，邵学军**
+<p align='center'><b>美迪康 AI Lab 成员：徐静，邵学军</b></p>
 
 ### 1.大赛说明
 
@@ -97,6 +97,8 @@
 └─YOLOv6-mask  #YOLOv6行人和口罩检测
 
 # 每个文件夹有详细的代码供参考！
+# 详细过程参考：SpotM2教程.pdf
+# 舵机校准程序请使用我们自己开发的校准程序！！！
 
 ```
 
@@ -104,17 +106,13 @@
 
 ### 2.SpotM2教程
 
-详细的SpotM2教程参考：[https://github.com/DataXujing/SpotM2-Jetson/blob/main/SpotM2%E6%95%99%E7%A8%8B.pdf](https://github.com/DataXujing/SpotM2-Jetson/blob/main/SpotM2%E6%95%99%E7%A8%8B.pdf)
++ 详细的SpotM2教程参考：[https://github.com/DataXujing/SpotM2-Jetson/blob/main/SpotM2%E6%95%99%E7%A8%8B.pdf](https://github.com/DataXujing/SpotM2-Jetson/blob/main/SpotM2%E6%95%99%E7%A8%8B.pdf)
 
-<iframe src="https://github.com/DataXujing/SpotM2-Jetson/blob/main/SpotM2%E6%95%99%E7%A8%8B.pdf" style="width:800px; height:500px;" frameborder="0"></iframe>
-
-```text
-
-```
-
-<embed id="pdfPlayer" src="./SpotM2教程.pdf" type="application/pdf" width="100%" height="600" >
-
-
+[![](./images/pdf.png)](https://github.com/DataXujing/SpotM2-Jetson/blob/main/SpotM2%E6%95%99%E7%A8%8B.pdf)
 
 ### 3.SpotM2 Demo
+
+| ![](./images/20221115_IMG_4510.JPG) | ![](./images/20221115_IMG_4511.JPG) | ![](./images/IMG_4730.JPG) |
+| ----------------------------------- | ----------------------------------- | -------------------------- |
+| ![](./images/IMG_4731.JPG)          | ![](./images/IMG_4732.JPG)          | ![](./images/IMG_4733.JPG) |
 
