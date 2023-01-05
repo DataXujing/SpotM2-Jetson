@@ -10,6 +10,8 @@
 
 <p align='center'><b>美迪康 AI Lab 成员：徐静，邵学军</b></p>
 
++ 视频demo: https://www.bilibili.com/video/BV1MM411172a/?vd_source=def8c63d9c5f9bf987870bf827bfcb3d
+
 ### 1.大赛说明
 
 + 请在12月14日23:59分之前提交参赛作品，作品包括：
