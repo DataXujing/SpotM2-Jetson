@@ -12,6 +12,8 @@
 
 + 视频demo: https://www.bilibili.com/video/BV1MM411172a/?vd_source=def8c63d9c5f9bf987870bf827bfcb3d
 
+![](https://img1.imgtp.com/2023/04/26/MAHmnQlV.png)
+
 ### 1.大赛说明
 
 + 请在12月14日23:59分之前提交参赛作品，作品包括：
